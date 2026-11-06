@@ -1,0 +1,47 @@
+[
+  {
+    "transaction_id": "TXN-1001",
+    "order_id": "ORD-90210",
+    "amount": 1499.00,
+    "expected_amount": 1499.00,
+    "currency": "INR",
+    "status": "CAPTURED",
+    "account_id": "ACT-IND-01"
+  },
+  {
+    "transaction_id": "TXN-1002",
+    "order_id": "ORD-90211",
+    "amount": 2999.00,
+    "expected_amount": 2599.00,
+    "currency": "INR",
+    "status": "DISCREPANCY_OVERCHARGED",
+    "account_id": "ACT-IND-02"
+  },
+  {
+    "transaction_id": "TXN-1003",
+    "order_id": "ORD-90212",
+    "amount": 499.00,
+    "expected_amount": 499.00,
+    "currency": "INR",
+    "status": "CAPTURED",
+    "account_id": "ACT-IND-01"
+  },
+  {
+    "transaction_id": "TXN-1004",
+    "order_id": "ORD-90213",
+    "amount": 0.00,
+    "expected_amount": 1200.00,
+    "currency": "INR",
+    "status": "UNPAID_ZERO_VALUED",
+    "account_id": "ACT-IND-03"
+  },
+  {
+    "transaction_id": "TXN-1005",
+    "order_id": "ORD-90214",
+    "amount": 850.50,
+    "expected_amount": 850.50,
+    "currency": "INR",
+    "status": "CAPTURED",
+    "account_id": "ACT-IND-02"
+  }
+]
