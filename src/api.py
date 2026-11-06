@@ -1,5 +1,6 @@
 from contextlib import asynccontextmanager
 import logging
+import os
 from typing import Any, Dict, List, Optional
 from fastapi import FastAPI, HTTPException, status
 from pydantic import BaseModel, Field
@@ -17,11 +18,23 @@ reconciliation_engine = ReconciliationEngine(storage_mgr=storage_manager)
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """Ensure AWS S3 and DynamoDB resources are initialized upon startup."""
+    use_real_aws = os.getenv("USE_REAL_AWS", "false").lower() in ("true", "1")
+    mock = None
+    if not use_real_aws:
+        from moto import mock_aws
+        mock = mock_aws()
+        mock.start()
+        logger.info("Running in Local Simulation Mode with in-memory AWS S3 & DynamoDB.")
+
     try:
         storage_manager.ensure_resources_exist()
     except Exception as exc:
-        logger.warning(f"Could not auto-provision AWS resources on startup: {exc}")
+        logger.warning(f"Resource provisioning note: {exc}")
+
     yield
+
+    if mock:
+        mock.stop()
 
 
 app = FastAPI(
