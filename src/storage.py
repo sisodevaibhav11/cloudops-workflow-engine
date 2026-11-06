@@ -49,6 +49,20 @@ class StorageManager:
         )
         self._table = None
 
+    def reconnect(self) -> None:
+        """Re-initializes boto3 clients (e.g. after mock context activation)."""
+        self.s3_client = boto3.client(
+            "s3",
+            region_name=self.region_name,
+            endpoint_url=self.endpoint_url,
+        )
+        self.dynamodb = boto3.resource(
+            "dynamodb",
+            region_name=self.region_name,
+            endpoint_url=self.endpoint_url,
+        )
+        self._table = None
+
     def get_table(self):
         """Lazy-loads or returns the DynamoDB Table resource."""
         if self._table is None:
